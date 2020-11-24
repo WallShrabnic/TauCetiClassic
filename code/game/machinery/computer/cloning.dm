@@ -320,7 +320,6 @@
 				temp = "Error: Clonepod malfunction."
 			else if(!config.revival_cloning)
 				temp = "Error: Unable to initiate cloning cycle."
-
 			else if(pod1.growclone(C))
 				temp = "<span class='good'>Cloning cycle in progress...</span>"
 				records.Remove(C)
@@ -368,6 +367,9 @@
 	if (!isnull(find_record(subject.ckey)))
 		scantemp = "Subject already in database."
 		return
+	if (subject.mind && subject.mind.changeling && subject.fake_death)
+		scantemp = "Biochemical activity inside subject's body and brain prevents from scanning and creating a living clone."
+		return
 
 	subject.dna.check_integrity()
 
@@ -397,6 +399,8 @@
 
 	if (!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
 		R.mind = "\ref[subject.mind]"
+	if(subject.mind.changeling)
+		R.mind = "\ref[subject.mind.changeling]"
 
 	src.records += R
 	scantemp = "Subject successfully scanned."

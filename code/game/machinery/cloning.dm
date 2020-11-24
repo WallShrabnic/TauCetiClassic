@@ -98,11 +98,12 @@
 /proc/find_dead_player(find_key)
 	if (isnull(find_key))
 		return
-
 	var/mob/selected = null
 	for(var/mob/M in player_list)
 		//Dead people only thanks!
 		if((M.stat != DEAD) || (!M.client))
+			continue
+		if(!(M.mind && M.mind.changeling))
 			continue
 		//They need a brain!
 		if(ishuman(M))
