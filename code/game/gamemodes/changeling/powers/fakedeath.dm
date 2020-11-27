@@ -15,11 +15,11 @@
 		var/fake_pick = pick("oxy", "tox", "clone")
 		switch(fake_pick)
 			if("oxy")
-				user.adjustOxyLoss(rand(200,300))
+				user.adjustOxyLoss(rand(230,300))
 			if("tox")
-				user.adjustToxLoss(rand(200,300))
+				user.adjustToxLoss(rand(230,300))
 			if("clone")
-				user.adjustCloneLoss(rand(200,300))
+				user.adjustCloneLoss(rand(230,300))
 
 		//user.death(0)
 		//dead_mob_list -= user
@@ -47,7 +47,7 @@
 /obj/effect/proc_holder/changeling/fakedeath/proc/give_revive_ability(mob/living/user)
 	if(user && user.mind && user.mind.changeling && user.mind.changeling.purchasedpowers)
 		user.mind.changeling.instatis = FALSE
-		user.fake_death = FALSE
+		user.fake_death = TRUE
 		user.clear_alert("regen_stasis")
 		for(var/mob/M in user.mind.changeling.essences)
 			M.clear_alert("regen_stasis")
@@ -80,7 +80,5 @@
 	for(var/mob/M in user.mind.changeling.essences)
 		M.throw_alert("regen_stasis", /obj/screen/alert/regen_stasis)
 	if(user.stat == DEAD)//In case player gave answer too late
-		user.fake_death = FALSE
-	else
 		user.fake_death = TRUE
 	return ..()

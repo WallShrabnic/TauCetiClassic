@@ -399,8 +399,6 @@
 
 	if (!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
 		R.mind = "\ref[subject.mind]"
-	if(subject.mind.changeling)
-		R.mind = "\ref[subject.mind.changeling]"
 
 	src.records += R
 	scantemp = "Subject successfully scanned."

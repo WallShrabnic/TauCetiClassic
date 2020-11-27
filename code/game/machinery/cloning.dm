@@ -103,8 +103,6 @@
 		//Dead people only thanks!
 		if((M.stat != DEAD) || (!M.client))
 			continue
-		if(!(M.mind && M.mind.changeling))
-			continue
 		//They need a brain!
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -114,6 +112,8 @@
 		else if(isobserver(M))
 			var/mob/dead/observer/O = M
 			if(!O.can_reenter_corpse)
+				continue
+			if(!(O.mind && O.mind.changeling))
 				continue
 
 		if(M.ckey == find_key)
@@ -171,6 +171,8 @@
 		return FALSE
 	var/datum/mind/clonemind = locate(R.mind)
 	if(!istype(clonemind, /datum/mind)) //not a mind
+		return FALSE
+	if(istype(clonemind, /datum/changeling))
 		return FALSE
 	if(clonemind.current && clonemind.current.stat != DEAD) //mind is associated with a non-dead body
 		return FALSE
